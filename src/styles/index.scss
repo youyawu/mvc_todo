@@ -1,0 +1,41 @@
+.root {
+  width: 400px;
+  margin: 50px auto;
+  form {
+    input {
+      width: 300px;
+      height: 30px;
+    }
+  }
+  button {
+    margin-left: 15px;
+    background: #007bff;
+    color: white;
+    cursor: pointer;
+    padding: 10px 15px;
+    border-radius: 7px;
+  }
+  ul {
+    padding: 0;
+    height: 500px;
+    overflow: scroll;
+    li {
+      list-style: none;
+      background: #f4f4f4;
+      padding: 1rem 10px;
+
+      .text {
+        margin-left: 15px;
+        width: 250px;
+        display: inline-block;
+        box-sizing: border-box;
+        padding: 10px;
+        &:focus {
+          //   outline: 1;
+          //   border: 2px solid #007bff;
+          background: rgba(179, 207, 255, 0.52);
+        }
+      }
+    }
+  }
+}
