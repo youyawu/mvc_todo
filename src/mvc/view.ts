@@ -6,7 +6,9 @@ const createElement = (tag: string, className?: string) => {
 },
     getEle = (selector: string) => document.querySelector(selector)
 
-export default class View {
+class View implements IView {
+
+
 
     private list: HTMLElement
 
@@ -65,15 +67,15 @@ export default class View {
     private _handles: {
         [index: string]: Array<todo_handle>
     } = {}
-    public on(subject: string, fn: todo_handle) {
-        let handles = this._handles[subject] || (this._handles[subject] = [])
-        handles.push(fn)
-    }
+
     private _emit(subject: string, x: todo) {
         let handles = this._handles[subject] || (this._handles[subject] = [])
         handles.forEach(handle => handle(x))
     }
-
+    public on(subject: string, fn: todo_handle) {
+        let handles = this._handles[subject] || (this._handles[subject] = [])
+        handles.push(fn)
+    }
     public DisplayTodos = (todos: Array<todo>) => {
         let arr: Array<HTMLElement> = []
         todos.forEach(({ id, text, complete = false }) => {
@@ -108,6 +110,15 @@ export default class View {
         else this.list.innerHTML = 'Nothing to do! Add a task?';
 
     }
-
+    public init(x: IController) {
+        x.view = new View()
+    }
 
 }
+let x: Iinit = {
+    init(c) {
+        c.view = new View
+    }
+}
+
+export default x 

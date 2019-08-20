@@ -1,18 +1,23 @@
-export default class Model {
+
+class Model implements IModel {
+
     public todos: Array<todo> = []
-    public onChange?: (todos: Array<todo>) => void
+    private onChange?: (todos: Array<todo>) => void
     constructor() {
         const cache = localStorage.getItem('todos')
         if (cache)
             this.todos = JSON.parse(cache)
     }
-    bindChaneg(cb: (arr: Array<todo>) => void) {
-        (this.onChange = cb)(this.todos)
 
-    }
     private _commit() {
         this.onChange && this.onChange(this.todos)
         localStorage.setItem('todos', JSON.stringify(this.todos))
+    }
+
+
+    public bindChaneg(cb: (arr: Array<todo>) => void) {
+        (this.onChange = cb)(this.todos)
+
     }
     public Add = ({ text }: todo) => {
         if (!text) return
@@ -32,4 +37,14 @@ export default class Model {
         this.todos = this.todos.filter(x => x.id !== id)
         this._commit()
     }
+
+    public init(x: IController) {
+        x.model = new Model()
+    }
 }
+let x: Iinit = {
+    init(c) {
+        c.model = new Model
+    }
+}
+export default x
